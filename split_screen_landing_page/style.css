@@ -1,0 +1,152 @@
+/*Create Variables*/
+
+:root{
+    --container-bg-color: #333;
+    --left-bg-color: rgba(173,216,230, 0.6);
+    --left-button-hover-color: rgba(161,11,11, 0.3);
+    --right-bg-color: rgba(43,43,43, 0.8);
+    --right-button-hover-color: rgba(92,92,92,0.3);
+    --hover-width: 75%;
+    --other-width: 25%;
+    --speed: 1000ms;
+}
+
+html, body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /*prevent horizontal scrolling*/
+}
+
+/*Heading*/
+h1{
+    font-size: 4rem; /* 4x16pixels*/
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%) ; /*h1 needs to move/transition when the other side is hovered over*/
+    white-space: nowrap; /*when it moves, it keeps the h1 stay on one line instead of going to another*/
+}
+
+/*Button*/
+.button{
+    display: block;
+    position: absolute;
+    left: 50%;
+    top:40%; /*h1 is at 20%...so this will be below h1*/
+    height: 2.5rem;
+    padding-top: 1.3rem;
+    width: 15rem;
+    text-align: center;
+    color: #fff;
+    border: #fff solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transform: translateX(-50%); /*just like the h1, it needs to move/transition when the other side is hovered over*/
+}
+
+/*Button Hover Affects*/
+.split.left .button:hover {
+    background-color: var(--left-button-hover-color);
+    border-color: var(--left-button-hover-color);
+}
+
+.split.right .button:hover {
+    background-color: var(--right-button-hover-color);
+    border-color: var(--right-button-hover-color);
+}
+
+/*Container*/
+.container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--container-bg-color);
+}
+
+.split {
+    position: absolute;
+    width: 50%; /*Each split will have a width of 50%*/
+    height: 100%;
+    overflow: hidden; /*this prevents scroll bars*/
+}
+
+.split.left{
+    left: 0;
+    background: url('img/fireworks.jpg') center center no-repeat; /*centers the image, centers the image x and y*/
+    background-size: cover;
+}
+
+/*Color Overlay*/
+.split.left:before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: var(--left-bg-color);
+}
+
+/*Background for right side*/
+.split.right{
+    right:0;
+    background: url(img/clouds.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.split.right:before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: var(--right-bg-color);
+}
+
+.split.left, .split.right, split.right:before, split.left:before{
+    transition: var(--speed) all ease-in-out;
+}
+
+.hover-left .left{
+    width: var(--hover-width); /*when we hover over left...we want the left width to be large*/
+}
+
+.hover-left .right{
+    width: var(--other-width); /*when we hover over left...we want the right to be small*/
+}
+
+.hover-left .right:before{
+    z-index: 2;
+}
+
+.hover-right .right{
+    width: var(--hover-width); /*when we hover over right...we want the right width to be large*/
+}
+
+.hover-right .left{
+    width: var(--other-width); /*when we hover over right...we want the left to be small*/
+}
+
+.hover-right .left:before{
+    z-index: 2;
+}
+
+@media (max-width: 800px){ /*this media query happens when the width gets down to 800px*/
+    h1{
+        font-size: 2rem;
+    }
+
+    .button{
+        width: 12rem;
+    }
+}
+
+@media (max-height: 700px){ /*this media query happens when the height is 700px or less*/
+    .button{
+        top: 70%;
+    }
+}
+
